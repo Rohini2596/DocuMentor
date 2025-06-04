@@ -8,8 +8,8 @@ Features:
   5. Local Processing: Runs entirely on your machine (privacy-focused)
 
 Tech Stack:
-  Frontend: Streamlit
-  LLM: Ollama (llama3.1:8b)
-  Embeddings: Nomic-embed-text
-  Vector Store: FAISS (local storage)
-  LangChain
+  a. Frontend: Streamlit
+  b. LLM: Ollama (llama3.1:8b)
+  c. Embeddings: Nomic-embed-text
+  d. Vector Store: FAISS (local storage)
+  e. LangChain

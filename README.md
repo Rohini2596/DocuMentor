@@ -6,6 +6,7 @@ Features:
   3. Document Management: View, select, and delete uploaded PDFs
   4. General Chat: Ask general questions when no PDF is selected
   5. Local Processing: Runs entirely on your machine (privacy-focused)
+
 Tech Stack:
   Frontend: Streamlit
   LLM: Ollama (llama3.1:8b)

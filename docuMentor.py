@@ -12,6 +12,61 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 st.set_page_config(page_title="DocuMentor", page_icon="🤖", layout="wide")
+st.markdown("""
+    <style>
+    section[data-testid="stSidebar"] {
+        background-color: #f3f3fb;
+        padding: 1rem;
+        border-right: 2px solid #e0e0e0;
+    }
+    h1 {
+        color: #6c63ff;
+        font-weight: 800;
+        text-align: center;
+        font-size: 3rem;
+    }
+    .stTextInput > div > div > input {
+        border: 2px solid #6c63ff;
+        border-radius: 10px;
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+    .stTextInput > label {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #333;
+    }
+    button[kind="primary"] {
+        background-color: #6c63ff !important;
+        color: white !important;
+        border-radius: 10px;
+        font-weight: bold;
+    }
+    button[kind="secondary"] {
+        border-radius: 10px;
+        font-weight: bold;
+    }
+    .st-expander > summary {
+        font-weight: bold;
+        color: #6c63ff;
+        font-size: 1rem;
+    }
+    .markdown-text-container {
+        background-color: #f9f9fc;
+        padding: 1rem;
+        border-radius: 10px;
+        border: 1px solid #dddddd;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+    }
+    .stCaption {
+        font-size: 0.85rem;
+        color: #888888;
+    }
+    canvas[height="0"] {
+        height: 300px !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
 embeddings = OllamaEmbeddings(model="nomic-embed-text", base_url="http://localhost:11434")
 llm = ChatOllama(model="llama3.1:8b", base_url="http://localhost:11434")
 prompt_template = """
@@ -201,7 +256,6 @@ if question:
                 full_input = question
             response = llm.invoke(full_input)
             parsed_response = StrOutputParser().invoke(response)
-            
             new_entry = {
                 "question": question,
                 "answer": parsed_response,
@@ -210,8 +264,8 @@ if question:
             chat_history.append(new_entry)
             st.session_state.chat_histories[db_name] = chat_history
             save_chat_history(db_name, chat_history)
-            st.markdown("### Answer")
-            st.success(parsed_response)
+            st.markdown("Answer")
+            st.markdown(f'<div class="markdown-text-container">{parsed_response}</div>', unsafe_allow_html=True)
             st.balloons()
         except Exception as e:
             st.error(f"Error processing your question: {str(e)}")

@@ -171,10 +171,11 @@ with st.sidebar:
             st.info("No general chat history yet.")
 st.title("🤖 DocuMentor")
 if st.session_state.need_clear_question:
-    st.session_state.question = ""
-    st.session_state.last_selected_pdf = None
-    st.session_state.need_clear_question = False
-    st.rerun()
+    if not st.session_state.get("question"):
+        st.session_state.question = ""
+        st.session_state.last_selected_pdf = None
+        st.session_state.need_clear_question = False
+        st.rerun()
 if st.session_state.last_selected_pdf != st.session_state.current_db:
     st.session_state.last_selected_pdf = st.session_state.current_db
 placeholder_text = "Ask any question from the selected PDF..." if st.session_state.current_db else "Ask me anything (general chat)..."
